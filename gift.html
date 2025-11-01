@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Propose Day 💞</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: "Poppins", sans-serif;
+    overflow: hidden;
+    transition: background-color 1s ease;
+    background-color: #000;
+  }
+
+  /* ===== PAGE 1 ===== */
+  .page1 {
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    text-align: center;
+    padding: 1.5rem;
+    position: relative;
+  }
+  .page1::before {
+    content: "";
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255,182,193,0.2) 0%, transparent 80%);
+    animation: pulse 4s infinite alternate;
+    z-index: -1;
+  }
+  @keyframes pulse {
+    from { transform: scale(1); opacity: 0.8; }
+    to { transform: scale(1.3); opacity: 1; }
+  }
+  h1 {
+    font-size: 1.1rem;
+    color: #ffb6c1;
+    text-shadow: 0 0 15px #ff5c8d;
+    animation: fadeIn 2s ease-in;
+    line-height: 1.6;
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-top: 2rem;
+    width: 100%;
+    max-width: 260px;
+  }
+  button {
+    background: linear-gradient(45deg, #ff5c8d, #ff85a1);
+    border: none;
+    color: #fff;
+    padding: 0.9rem;
+    border-radius: 50px;
+    font-size: 1rem;
+    cursor: pointer;
+    animation: buttonPulse 2s infinite;
+    transition: all 0.3s ease;
+    width: 100%;
+  }
+  @keyframes buttonPulse {
+    0%,100% { box-shadow: 0 0 10px rgba(255,182,193,.4); }
+    50% { box-shadow: 0 0 20px rgba(255,182,193,.8); }
+  }
+  button:hover { transform: scale(1.05); box-shadow: 0 0 20px rgba(255,105,180,.8); }
+  .confess {
+    color: #ff85a1;
+    font-style: italic;
+    margin-top: 1rem;
+    font-size: .9rem;
+    opacity: 0;
+    transition: opacity .5s;
+  }
+
+  /* ===== PAGE 2 ===== */
+  .page2 {
+    display: none;
+    height: 100vh;
+    background: linear-gradient(to bottom right, #ffd6e0, #ffe6ef);
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    opacity: 0;
+    position: relative;
+    overflow: hidden;
+    padding: 1rem;
+  }
+  .page2.show { display: flex; opacity: 1; animation: fadeInPage 1.5s forwards; }
+  @keyframes fadeInPage { from { opacity: 0; } to { opacity: 1; } }
+
+  /* Floating quotes */
+  .floating-quote {
+    position: absolute;
+    color: rgba(255, 105, 180, 0.4);
+    font-size: 0.9rem;
+    font-style: italic;
+    white-space: nowrap;
+    animation: floatUp 15s linear infinite;
+  }
+  @keyframes floatUp {
+    0% { transform: translateY(100vh); opacity: 0.2; }
+    50% { opacity: 0.6; }
+    100% { transform: translateY(-10vh); opacity: 0.2; }
+  }
+
+  /* Card Layout */
+  .card {
+    background: rgba(255, 255, 255, 0.92);
+    border-radius: 15px;
+    box-shadow: 0 0 20px rgba(255,105,180,0.4);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    max-width: 380px;
+    width: 100%;
+    z-index: 1;
+    padding: 1rem;
+    animation: fadeInCard 1.5s ease forwards;
+  }
+  @keyframes fadeInCard { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+  .card img {
+    width: 100%;
+    max-width: 300px;
+    border-radius: 15px;
+    margin-bottom: 1rem;
+    box-shadow: 0 0 15px rgba(255,182,193,0.7);
+  }
+  .card p {
+    font-size: .9rem;
+    color: #ff4d88;
+    line-height: 1.5;
+    animation: textFade 2s ease forwards;
+  }
+  @keyframes textFade {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .card button {
+    margin-top: 1.2rem;
+    background: linear-gradient(45deg, #ff85a1, #ffb6c1);
+    border: none;
+    color: white;
+    padding: 0.8rem 1.2rem;
+    border-radius: 50px;
+    font-size: 1rem;
+    cursor: pointer;
+    box-shadow: 0 0 15px rgba(255,105,180,0.4);
+    transition: transform .3s ease;
+  }
+  .card button:hover { transform: scale(1.05); box-shadow: 0 0 25px rgba(255,105,180,0.7); }
+
+  /* Confetti */
+  .confetti {
+    position: fixed;
+    width: 10px;
+    height: 10px;
+    background: pink;
+    top: 0;
+    opacity: .9;
+    animation: fall 4s linear forwards;
+    z-index: 999;
+  }
+  @keyframes fall {
+    0% { transform: translateY(0) rotate(0deg); }
+    100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+  }
+
+  @media (max-width: 500px) {
+    h1 { font-size: 1rem; }
+    .card p { font-size: .85rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- PAGE 1 -->
+<div class="page1" id="page1">
+  <h1>Let's meet again, for the first time because it's something really important which I want you to know... and I really want you to know 💖</h1>
+  <div class="buttons">
+    <button onclick="goToPage2()">Yes, of course!! 💍</button>
+    <button onclick="pressNo()">NO 🙈</button>
+  </div>
+  <div class="confess" id="confessText"></div>
+</div>
+
+<!-- PAGE 2 -->
+<div class="page2" id="page2">
+  <!-- Floating quotes -->
+  <div class="floating-quote" style="left:10%;">"I wanna be the rose that you'd keep, even after it dries up and loses its fragrance."</div>
+  <div class="floating-quote" style="left:30%; animation-delay:4s;">"Didn't my eyes tell you that I wanted you badly?"</div>
+  <div class="floating-quote" style="left:60%; animation-delay:8s;">"You're my favorite kind of forever 💞"</div>
+  <div class="floating-quote" style="left:80%; animation-delay:12s;">"Every heartbeat whispers your name."</div>
+
+  <div class="card">
+    <img src="https://media.tenor.com/ghM9A3sqq4MAAAAd/bubu-dudu-love.gif" alt="Bubu and Dudu Teddy Bear Love">
+    <p>I'm not perfect but I wanna be everything you dream of. I wanna be the man who understands not just the big things but small details too. I want you to tell me what you like and what makes you laugh and what makes you feel safe. Teach me how to love you the way you want to be loved. I don't want you to assume I know what you need. I want to listen, to learn. Your happiness means everything to me and I'll never stop trying to be the man who brings it to you. I want to be the one who shows up for you, who gets it right, who learns from my mistakes. I'll always be ready to grow, to change and to love you more deeply than I did yesterday. Tell me your dreams, your desires, your fears and I promise I'll be right here — because you're my number one 💞</p>
+    <button onclick="launchConfetti()">It's okay!! 💫</button>
+  </div>
+</div>
+
+<!-- Background Music -->
+<audio id="bgMusic" loop>
+  <source src="https://cdn.pixabay.com/download/audio/2023/02/28/audio_c808e7f68f.mp3?filename=romantic-piano-melody-142131.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+function goToPage2() {
+  const page1 = document.getElementById('page1');
+  const page2 = document.getElementById('page2');
+  const music = document.getElementById('bgMusic');
+  page1.style.transition = "opacity 1s ease";
+  page1.style.opacity = "0";
+  setTimeout(() => {
+    page1.style.display = "none";
+    page2.classList.add("show");
+    music.play().catch(()=>{});
+  }, 1000);
+}
+
+let confessCount = 0;
+function pressNo() {
+  const confess = document.getElementById('confessText');
+  const msgs = [
+    "Aww come on... give me a chance 🥺",
+    "Please? I promise it’s worth it 😘",
+    "You know you want to press Yes 😏",
+    "I’ll wait... until you do 💖",
+    "Okay okay... but still, please? 💞"
+  ];
+  confess.innerText = msgs[confessCount % msgs.length];
+  confess.style.opacity = "1";
+  confessCount++;
+}
+
+function launchConfetti() {
+  for (let i = 0; i < 100; i++) {
+    const confetti = document.createElement('div');
+    confetti.classList.add('confetti');
+    confetti.style.left = Math.random() * 100 + 'vw';
+    confetti.style.backgroundColor = `hsl(${Math.random() * 360},80%,70%)`;
+    confetti.style.width = confetti.style.height = Math.random() * 8 + 4 + 'px';
+    confetti.style.animationDuration = (3 + Math.random() * 2) + 's';
+    document.body.appendChild(confetti);
+    setTimeout(() => confetti.remove(), 5000);
+  }
+}
+</script>
+</body>
+</html>
